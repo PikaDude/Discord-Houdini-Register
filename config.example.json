@@ -1,0 +1,16 @@
+{
+    "port": 80,
+    "host": "http://localhost",
+    "discordClient": {
+        "id": "",
+        "secret": "",
+        "redirectURI": "http://localhost/api/login"
+    },
+    "mysql": {
+        "host": "localhost",
+        "port": 3306,
+        "user": "root",
+        "password": "",
+        "database": "Houdini"
+    }
+}

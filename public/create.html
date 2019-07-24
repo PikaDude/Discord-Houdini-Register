@@ -1,0 +1,111 @@
+<html>
+
+<head>
+    <title>Penguin Creation</title>
+    <style>
+        .color {
+            width: 50px;
+            height: 50px;
+        }
+
+        label {
+            float: left;
+            padding-right: 5px;
+        }
+
+        label>input {
+            visibility: hidden;
+            position: absolute;
+        }
+
+        label>input+div {
+            cursor: pointer;
+            border: 2px solid black;
+            border-radius: 10px;
+        }
+
+        label>input:checked+div {
+            border: 2px solid #FFBC38;
+        }
+
+        form {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="/api/create">
+        <p>Enter your Penguin Name:</p>
+        <input name="name" type="text">
+        <br>
+        <p>Enter your Password:</p>
+        <input name="password" type="password">
+        <p>Click on a Color:</p>
+        <label>
+            <input type="radio" name="color" value="1" checked>
+            <div class="color" style="background-color: #003366;"></div>
+        </label>
+        <label>
+            <input type="radio" name="color" value="2">
+            <div class="color" style="background-color: #009900;"></div>
+        </label>
+        <label>
+            <input type="radio" name="color" value="3">
+            <div class="color" style="background-color: #FF3299;"></div>
+        </label>
+        <label>
+            <input type="radio" name="color" value="4">
+            <div class="color" style="background-color: #333333;"></div>
+        </label>
+        <label>
+            <input type="radio" name="color" value="5">
+            <div class="color" style="background-color: #CC0000;"></div>
+        </label>
+        <label>
+            <input type="radio" name="color" value="6">
+            <div class="color" style="background-color: #FF6500;"></div>
+        </label>
+        <label>
+            <input type="radio" name="color" value="7">
+            <div class="color" style="background-color: #FFCC00;"></div>
+        </label>
+        <label>
+            <input type="radio" name="color" value="8">
+            <div class="color" style="background-color: #650099;"></div>
+        </label>
+        <label>
+            <input type="radio" name="color" value="9">
+            <div class="color" style="background-color: #996600;"></div>
+        </label>
+        <label>
+            <input type="radio" name="color" value="10">
+            <div class="color" style="background-color: #FF6565;"></div>
+        </label>
+        <label>
+            <input type="radio" name="color" value="11">
+            <div class="color" style="background-color: #006600;"></div>
+        </label>
+        <label>
+            <input type="radio" name="color" value="12">
+            <div class="color" style="background-color: #0099CC;"></div>
+        </label>
+        <label>
+            <input type="radio" name="color" value="13">
+            <div class="color" style="background-color: #8AE802;"></div>
+        </label>
+        <label>
+            <input type="radio" name="color" value="15">
+            <div class="color" style="background-color: #02A797;"></div>
+        </label>
+        <input name="token" type="password" hidden value="{TOKEN}">
+        <br>
+        <br />
+        <br />
+        <br />
+        <br />
+        <input type="submit">
+    </form>
+</body>
+
+</html>

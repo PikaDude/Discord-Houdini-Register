@@ -1,0 +1,26 @@
+{
+  "name": "penguin_login",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "main": "node index.js",
+    "init": "node scripts/init.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://owo.codes/PikaDude/Penguin_Login"
+  },
+  "author": "PikaDude",
+  "license": "ISC",
+  "dependencies": {
+    "compression": "^1.7.4",
+    "express": "^4.17.1",
+    "helmet": "^3.19.0",
+    "morgan": "^1.9.1",
+    "mysql": "^2.17.1",
+    "request": "^2.88.0",
+    "requestretry": "^4.0.0",
+    "whiskers": "^0.4.0"
+  }
+}
