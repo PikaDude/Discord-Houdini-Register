@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.listen(index.config.port);
 
 app.get('/', async function (req, res) {
-    res.redirect(302, `https://discordapp.com/api/oauth2/authorize?client_id=${encodeURIComponent(index.config.discordClient.id)}&redirect_uri=${encodeURIComponent(index.config.discordClient.redirectURI)}&response_type=code&scope=identify%20guilds.join`);
+    res.redirect(302, `https://discordapp.com/api/oauth2/authorize?client_id=${encodeURIComponent(index.config.discordClient.id)}&redirect_uri=${encodeURIComponent(index.config.discordClient.redirectURI)}&response_type=code&scope=${(index.config.discordJoin.enabled) ? 'identify%20guilds.join' : 'identify'}`);
 });
 
 app.get('/create', async function (req, res) {
@@ -135,7 +135,7 @@ app.get('/api/login', async function (req, res) {
                 client_id: index.config.discordClient.id,
                 client_secret: index.config.discordClient.secret,
                 redirect_uri: index.config.discordClient.redirectURI,
-                scope: 'identify guilds.join'
+                scope: (index.config.discordJoin.enabled) ? 'identify guilds.join' : 'identify'
             },
             retryStrategy: myRetryStrategy,
             delayStrategy: myDelayStrategy
