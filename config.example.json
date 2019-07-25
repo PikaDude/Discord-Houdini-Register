@@ -15,8 +15,7 @@
         "database": "Houdini"
     },
     "account": {
-        "allowedCharsRegex": "[A-Za-z0-9 ]",
-        "maxEmailUses": 3
+        "allowedCharsRegex": "[A-Za-z0-9 ]"
     },
     "discordJoin": {
         "enabled": false,
