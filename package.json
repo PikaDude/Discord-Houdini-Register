@@ -12,7 +12,7 @@
     "url": "https://owo.codes/PikaDude/Penguin_Login"
   },
   "author": "PikaDude",
-  "license": "ISC",
+  "license": "CC-BY-NC-SA-4.0",
   "dependencies": {
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
