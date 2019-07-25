@@ -24,9 +24,7 @@ app.get('/', async function (req, res) {
 });
 
 app.get('/create', async function (req, res) {
-    res.render('create.html', {
-        REGEX: index.config.account.allowedCharsRegex
-    });
+    res.render('create.html');
 });
 
 app.get('/complete', async function (req, res) {
