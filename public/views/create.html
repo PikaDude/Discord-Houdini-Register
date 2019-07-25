@@ -11,11 +11,13 @@
             document.create.color.value = localStorage.getItem('color');
             document.create.token.value = localStorage.getItem('token');
 
+            penguin.src = `assets/img/penguin/$\{localStorage.getItem('color')}.svg`;
             var urlParams = new URLSearchParams(window.location.search);
             if (urlParams.has('error')) {
                 error.textContent = urlParams.get('error');
                 errorContainer.style.display = 'block';
             }
+
 
 
             var rad = document.create.color;
