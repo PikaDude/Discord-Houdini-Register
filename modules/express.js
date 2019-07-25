@@ -26,6 +26,31 @@ app.get('/', async function (req, res) {
 });
 
 app.get('/api/create', async function (req, res) {
+    request({
+        url: 'https://discordapp.com/api/users/@me',
+        headers: {
+            'Authorization': 'Bearer ' + access_token
+        },
+        retryStrategy: myRetryStrategy,
+        delayStrategy: myDelayStrategy
+    }, function (err, response, body) {
+        if (err) {
+            res.status(500).send("Error communicating with Discord. Please try again later.");
+            console.error(err);
+        } else if (response.statusCode != 200) {
+            res.status(500).send("Error communicating with Discord. Please try again later.");
+            console.error(body);
+        } else {
+            try {
+                var userData = JSON.parse(body);
+
+                
+            } catch (Exception) {
+                res.status(500).send("An unknown error occurred. Please try again later.");
+                console.error(Exception);
+            }
+        }
+    });
 });
 
 app.get('/api/login', async function (req, res) {

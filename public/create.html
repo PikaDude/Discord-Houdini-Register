@@ -31,11 +31,32 @@
         form {
             width: 100%;
         }
+
+        #error {
+            padding: 15px;
+            background-color: rgba(255, 0, 0, 0.3);
+            border: 2px solid rgba(255, 0, 0, 0.5);
+            border-radius: 10px;
+        }
     </style>
+    <script>
+        window.onload = function () {
+            var error = "{ERROR}";
+            if (error != "") {
+                document.getElementById('error').textContent = error;
+                document.getElementById('errorContainer').style.display = 'unset';
+            }
+        }
+    </script>
 </head>
 
 <body>
-    <form action="/api/create">
+    <div id="errorContainer" style="display: none;">
+        <br>
+        <p id="error"></p>
+        <br>
+    </div>
+    <form action="/api/create" method="post">
         <p>Enter your Penguin Name:</p>
         <input name="name" type="text">
         <br>
