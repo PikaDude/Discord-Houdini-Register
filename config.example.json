@@ -4,8 +4,7 @@
     "playHost": "http://play.localhost/",
     "discordClient": {
         "id": "",
-        "secret": "",
-        "redirectURI": "http://localhost/api/login"
+        "secret": ""
     },
     "mysql": {
         "host": "localhost",
