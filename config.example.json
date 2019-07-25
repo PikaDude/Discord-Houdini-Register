@@ -1,6 +1,7 @@
 {
     "port": 80,
     "host": "http://localhost",
+    "playHost": "http://play.localhost/",
     "discordClient": {
         "id": "",
         "secret": "",
@@ -12,5 +13,14 @@
         "user": "root",
         "password": "",
         "database": "Houdini"
+    },
+    "account": {
+        "allowedCharsRegex": "[A-Za-z0-9 ]",
+        "maxEmailUses": 3
+    },
+    "discordJoin": {
+        "enabled": false,
+        "serverID": "",
+        "botToken": ""
     }
 }

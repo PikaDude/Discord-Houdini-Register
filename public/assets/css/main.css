@@ -1,0 +1,124 @@
+@font-face {
+    font-family: ProximaNova-Bold;
+    src: url('../font/ProximaNova-Bold.woff2');
+}
+
+@font-face {
+    font-family: ProximaNova-Reg;
+    src: url('../font/ProximaNova-Reg.woff2');
+}
+
+.color {
+    width: 50px;
+    height: 50px;
+}
+
+label {
+    margin: 5px;
+}
+
+.colors {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+label>input {
+    visibility: hidden;
+    position: absolute;
+}
+
+label>input+div {
+    cursor: pointer;
+    border: 4px solid white;
+    border-radius: 10px;
+}
+
+label>input:checked+div {
+    border: 4px solid #FFBC38;
+}
+
+form {
+    width: 100%;
+}
+
+#error {
+    padding: 15px;
+    background-color: rgba(255, 0, 0, 0.3);
+    border: 2px solid rgba(255, 0, 0, 0.5);
+    border-radius: 10px;
+}
+
+#errorContainer {
+    width: 50%;
+    margin: 0 auto;
+}
+
+body {
+    background-color: #22A4F3;
+    color: white;
+    font-family: 'ProximaNova-Bold', Helvetica, Arial, sans-serif;
+    font-size: 20px;
+}
+
+.mainContainer {
+    width: 100%;
+    margin: auto;
+    text-align: center;
+}
+
+input[type=text],
+input[type=password],
+a {
+    border: 5px solid #FFBC3A;
+    width: 30%;
+    text-align: center;
+}
+
+input[type=text],
+input[type=password],
+input[type=submit],
+a {
+    font-family: 'ProximaNova-Bold', Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    min-width: 300px;
+}
+
+#penguin {
+    height: 30%;
+}
+
+input[type=submit],
+a {
+    background-color: #FFB409;
+    border: 7px solid #D57E00;
+    width: 20%;
+    color: white;
+    cursor: pointer;
+}
+
+input[type=submit]:hover,
+a:hover {
+    background-color: #FF9A00;
+}
+
+.input-desc {
+    font-size: 14px;
+    font-family: 'ProximaNova-Reg', Helvetica, Arial, sans-serif;
+    color: white;
+}
+
+.valign {
+    margin: 0;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+a {
+    text-decoration: none;
+}

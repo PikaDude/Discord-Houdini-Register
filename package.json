@@ -14,13 +14,16 @@
   "author": "PikaDude",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "compression": "^1.7.4",
     "express": "^4.17.1",
     "helmet": "^3.19.0",
+    "md5": "^2.2.1",
     "morgan": "^1.9.1",
     "mysql": "^2.17.1",
     "request": "^2.88.0",
     "requestretry": "^4.0.0",
+    "twin-bcrypt": "^2.1.1",
     "whiskers": "^0.4.0"
   }
 }

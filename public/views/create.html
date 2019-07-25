@@ -1,0 +1,123 @@
+<html>
+
+<head>
+    <title>Create Penguin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <script>
+        window.onload = function () {
+            document.create.name.value = localStorage.getItem('name');
+            document.create.password.value = localStorage.getItem('password');
+            document.create.color.value = localStorage.getItem('color');
+            document.create.token.value = localStorage.getItem('token');
+
+            var urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('error')) {
+                error.textContent = urlParams.get('error');
+                errorContainer.style.display = 'block';
+            }
+
+
+            var rad = document.create.color;
+            var prev = null;
+            for (var i = 0; i < rad.length; i++) {
+                rad[i].addEventListener('change', function () {
+                    var color = this.value;
+                    if (color == 15) color = 14;
+                    penguin.src = `assets/img/penguin/$\{color}.svg`;
+                });
+            }
+        }
+
+        if (!localStorage.getItem('token')) window.location = "//" + window.location.host;
+
+        function saveValues() {
+            localStorage.setItem('name', document.create.name.value);
+            localStorage.setItem('password', document.create.password.value);
+            localStorage.setItem('color', document.create.color.value);
+        }
+    </script>
+</head>
+
+<body>
+    <div class="mainContainer">
+        <br>
+        <img src="assets/img/penguin/1.svg" id="penguin">
+        <div id="errorContainer" style="display: none;">
+            <p id="error"></p>
+        </div>
+        <form onsubmit="return saveValues();" action="/api/create" method="post" name="create">
+            <p>Enter your Penguin Name:</p>
+            <input name="name" type="text" autocomplete="username" required minlength="4" maxlength="12" pattern="{REGEX}">
+            <br />
+            <span class="input-desc">Only letters, numbers, and spaces are accepted. Must be 4-12 characters long.</span>
+            <p>Enter your Password:</p>
+            <input name="password" type="password" autocomplete="new-password" required minlength="4" maxlength="30">
+            <p>Click on a Color:</p>
+            <div class="colors">
+                <label>
+                    <input type="radio" name="color" value="1" checked>
+                    <div class="color" style="background-color: #003366;"></div>
+                </label>
+                <label>
+                    <input type="radio" name="color" value="2">
+                    <div class="color" style="background-color: #009900;"></div>
+                </label>
+                <label>
+                    <input type="radio" name="color" value="3">
+                    <div class="color" style="background-color: #FF3299;"></div>
+                </label>
+                <label>
+                    <input type="radio" name="color" value="4">
+                    <div class="color" style="background-color: #333333;"></div>
+                </label>
+                <label>
+                    <input type="radio" name="color" value="5">
+                    <div class="color" style="background-color: #CC0000;"></div>
+                </label>
+                <label>
+                    <input type="radio" name="color" value="6">
+                    <div class="color" style="background-color: #FF6500;"></div>
+                </label>
+                <label>
+                    <input type="radio" name="color" value="7">
+                    <div class="color" style="background-color: #FFCC00;"></div>
+                </label>
+                <label>
+                    <input type="radio" name="color" value="8">
+                    <div class="color" style="background-color: #650099;"></div>
+                </label>
+                <label>
+                    <input type="radio" name="color" value="9">
+                    <div class="color" style="background-color: #996600;"></div>
+                </label>
+                <label>
+                    <input type="radio" name="color" value="10">
+                    <div class="color" style="background-color: #FF6565;"></div>
+                </label>
+                <label>
+                    <input type="radio" name="color" value="11">
+                    <div class="color" style="background-color: #006600;"></div>
+                </label>
+                <label>
+                    <input type="radio" name="color" value="12">
+                    <div class="color" style="background-color: #0099CC;"></div>
+                </label>
+                <label>
+                    <input type="radio" name="color" value="13">
+                    <div class="color" style="background-color: #8AE802;"></div>
+                </label>
+                <label>
+                    <input type="radio" name="color" value="15">
+                    <div class="color" style="background-color: #02A797;"></div>
+                </label>
+            </div>
+            <input name="token" type="password" hidden>
+            <br />
+            <br />
+            <input type="submit" value="Create Penguin">
+        </form>
+    </div>
+</body>
+
+</html>

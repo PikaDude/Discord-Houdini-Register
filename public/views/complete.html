@@ -1,0 +1,35 @@
+<html>
+
+<head>
+    <title>Create Penguin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <script>
+        var remaining = 5;
+
+        window.onload = function () {
+            setInterval(function () {
+                remaining--;
+                seconds.textContent = remaining;
+                if (remaining == 1) s.textContent = "";
+                else s.textContent = "s";
+                if (remaining == 0) window.location = "{PLAY_HOST}";
+            }, 1000);
+        }
+
+        localStorage.clear();
+    </script>
+</head>
+
+<body>
+    <div class="mainContainer valign">
+        <br />
+        <img src="assets/img/complete.svg" id="penguin">
+        <h1>Penguin creation complete!</h1>
+        <p>Redirecting you back to the game in <span id="seconds">5</span> second<span id="s">s</span>...</p>
+        <br />
+        <a href="{PLAY_HOST}">Click here if nothing happens.</a>
+    </div>
+</body>
+
+</html>
