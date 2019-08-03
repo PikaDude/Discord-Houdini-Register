@@ -1,5 +1,5 @@
 # Discord Houdini Register
-A program used to allow users to create Penguins using a Discord account rather than an email. Works with the [AS2 branch of Houdini](https://github.com/Solero/Houdini). Meant to work well with the Discord Bot that integrates the CPPS with Discord, [which is currently in development](https://github.com/PikaDude/Rookie). It is recommended to use this program on a new CPPS installation.
+A program used to allow users to create Penguins using a [Discord](https://discordapp.com) account rather than an email. Works with the [AS2 branch of Houdini](https://github.com/Solero/Houdini). Meant to work well with the Discord Bot that integrates the CPPS with Discord, [which is currently in development](https://github.com/PikaDude/Rookie). It is recommended to use this program on a new CPPS installation.
 
 ## Basic setup instructions
 For a FULL guide on how to set this program up, check out [this page on the wiki](../../wiki/Setup).
