@@ -7,6 +7,17 @@ var connection = mysql.createConnection(index.config.mysql);
 
 connection.connect();
 
+// Old versions of this program accidentally stored user id's as bigints. The following function checks what data type user id's are stored in, and if they're bigints it will change them to strings.
+connection.query("SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'discord_penguins' AND COLUMN_NAME = 'userID'", function (error, results) {
+    if (error) throw error;
+    if (results[0].DATA_TYPE == 'bigint') {
+        connection.query(`ALTER TABLE discord_penguins MODIFY userID varchar(20)`, function (error) {
+            if (error) throw error;
+            else console.log("Successfully migrated table from older version.");
+        });
+    }
+});
+
 exports.checkUsername = function (username) {
     return new Promise(resolve => {
         try {
