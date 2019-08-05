@@ -1,11 +1,11 @@
 <html>
 
 <body>
-    <!-- Made by PikaDude https://pikadude.me/ -->
+    <!-- Made by PikaDude https://github.com/PikaDude/Discord-Houdini-Register -->
     <script>
         window.onload = function () {
             localStorage.setItem('token', '{TOKEN}');
-            window.location = "//" + window.location.host + "/create";
+            window.location = "//" + window.location.host + (localStorage.getItem('lastLocation') || '/create');
         }
     </script>
 </body>

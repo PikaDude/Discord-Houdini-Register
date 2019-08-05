@@ -1,14 +1,24 @@
 <html>
 
 <head>
-    <title>Create Penguin</title>
+    <title>Redirecting...</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/main.css">
-    <!-- Made by PikaDude https://pikadude.me/ -->
+    <!-- Made by PikaDude https://github.com/PikaDude/Discord-Houdini-Register -->
     <script>
         var remaining = 5;
 
         window.onload = function () {
+            var titleContent = "Penguin creation complete!";
+            if (localStorage.getItem('type') == 1) {
+                var urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.has('u')) titleContent = urlParams.get('u') + "'s password was reset!";
+                else titleContent = "Password reset!";
+            }
+            title.textContent = titleContent;
+            main.style.display = 'block';
+            localStorage.clear();
+
             setInterval(function () {
                 remaining--;
                 seconds.textContent = remaining;
@@ -17,16 +27,14 @@
                 if (remaining == 0) window.location = "{PLAY_HOST}";
             }, 1000);
         }
-
-        localStorage.clear();
     </script>
 </head>
 
 <body>
-    <div class="mainContainer valign">
+    <div class="mainContainer valign" id="main" style="display: none;">
         <br />
         <img src="assets/img/complete.svg" id="penguin">
-        <h1>Penguin creation complete!</h1>
+        <h1 id="title"></h1>
         <p>Redirecting you back to the game in <span id="seconds">5</span> second<span id="s">s</span>...</p>
         <br />
         <a href="{PLAY_HOST}">Click here if nothing happens.</a>

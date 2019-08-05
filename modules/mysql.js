@@ -52,6 +52,32 @@ exports.checkIfAccountUsed = function (id) {
     });
 }
 
+exports.getPenguinUsernameDiscord = function (id) {
+    return new Promise(resolve => {
+        try {
+            connection.query(`SELECT penguinID FROM discord_penguins WHERE userID = '${id}'`, function (error, results) {
+                if (error) {
+                    resolve({ error: error });
+                    console.error(error);
+                }
+                else {
+                    connection.query(`SELECT Username FROM penguin WHERE ID = '${results[0].penguinID}'`, function (error, results) {
+                        if (error) {
+                            resolve({ error: error });
+                            console.error(error);
+                        } else {
+                            resolve(results[0].Username);
+                        }
+                    });
+                }
+            });
+        } catch (error) {
+            console.error(error);
+            resolve({ error: error });
+        }
+    });
+}
+
 exports.insertUser = function (username, password, color, userID) {
     return new Promise(resolve => {
         try {
@@ -91,6 +117,36 @@ exports.insertUser = function (username, password, color, userID) {
                                         });
                                     }
                                 });
+                            }
+                        });
+                    }
+                });
+            });
+        } catch (error) {
+            console.error(error);
+            resolve({ error: error });
+        }
+    });
+}
+
+exports.updatePassword = function (userID, password) {
+    return new Promise(resolve => {
+        try {
+            var hashedPassword = md5(password).toUpperCase();
+            var staticKey = "houdini";
+            var flashClientHash = getLoginHash(hashedPassword, staticKey);
+            twinBcrypt.hash(flashClientHash, 12, null, function (hash) {
+                connection.query(`SELECT penguinID FROM discord_penguins WHERE userID = '${userID}'`, function (error, results) {
+                    if (error) {
+                        resolve({ error: error });
+                        console.error(error);
+                    } else {
+                        connection.query(`UPDATE penguin SET Password = '${hash}' WHERE ID = '${results[0].penguinID}'`, function (error) {
+                            if (error) {
+                                resolve({ error: error });
+                                console.error(error);
+                            } else {
+                                resolve('Success');
                             }
                         });
                     }

@@ -1,0 +1,44 @@
+<html>
+
+<head>
+    <title>Reset Your Password</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <!-- Made by PikaDude https://github.com/PikaDude/Discord-Houdini-Register -->
+    <script>
+        window.onload = function () {
+            document.forgot.token.value = localStorage.getItem('token');
+            localStorage.setItem('type', 1);
+
+            var urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('error')) {
+                error.textContent = urlParams.get('error');
+                errorContainer.style.display = 'block';
+            }
+        }
+
+        if (!localStorage.getItem('token')) {
+            window.location = "//" + window.location.host;
+            localStorage.setItem('lastLocation', '/forgot');
+        }
+    </script>
+</head>
+
+<body>
+    <div class="mainContainer">
+        <br>
+        <div id="errorContainer" style="display: none;">
+            <p id="error"></p>
+        </div>
+        <form action="/api/forgot" method="post" name="forgot">
+            <p>Enter your new Password:</p>
+            <input name="password" type="password" autocomplete="new-password" required minlength="4" maxlength="30">
+            <input name="token" type="password" hidden>
+            <br />
+            <br />
+            <input type="submit" value="Reset Password">
+        </form>
+    </div>
+</body>
+
+</html>

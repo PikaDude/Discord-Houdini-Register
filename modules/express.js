@@ -20,11 +20,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.listen(index.config.port);
 
 app.get('/', async function (req, res) {
-    res.redirect(302, `https://discordapp.com/api/oauth2/authorize?client_id=${encodeURIComponent(index.config.discordClient.id)}&redirect_uri=${encodeURIComponent(index.config.host + '/api/login')}&response_type=code&scope=${(index.config.discordJoin.enabled) ? 'identify%20guilds.join' : 'identify'}`);
+    res.redirect(302, `https://discordapp.com/api/oauth2/authorize?client_id=${encodeURIComponent(index.config.discordClient.id)}&redirect_uri=${encodeURIComponent(index.config.host + '/api/login')}&response_type=code&scope=${(index.config.extras.autoJoin) ? 'identify%20guilds.join' : 'identify'}`);
 });
 
 app.get('/create', async function (req, res) {
     res.render('create.html');
+});
+
+app.get('/forgot', async function (req, res) {
+    res.render('forgot.html');
 });
 
 app.get('/complete', async function (req, res) {
@@ -75,15 +79,15 @@ app.post('/api/create', async function (req, res) {
                 try {
                     var discordData = JSON.parse(body);
 
-                    if (index.config.discordJoin.enabled)
+                    if (index.config.extras.autoJoin) {
                         request({
-                            url: `https://discordapp.com/api/v6/guilds/${index.config.discordJoin.serverID}/members/${discordData.id}`,
+                            url: `https://discordapp.com/api/v6/guilds/${index.config.discordClient.serverID}/members/${discordData.id}`,
                             method: 'PUT',
                             json: {
                                 access_token: req.body.token
                             },
                             headers: {
-                                Authorization: 'Bot ' + index.config.discordJoin.botToken
+                                Authorization: 'Bot ' + index.config.discordClient.token
                             },
                             retryStrategy: myRetryStrategy,
                             delayStrategy: myDelayStrategy
@@ -93,26 +97,83 @@ app.post('/api/create', async function (req, res) {
                             } else if (response.statusCode != 204) {
                                 console.error(body);
                             }
-
-                            var accountExists = await mysql.checkIfAccountUsed(discordData.id);
-                            if (accountExists.error) {
-                                res.redirect(302, index.config.host + '/create?error=Error communicating with database. Please try again later.');
-                                return;
-                            } else if (accountExists.length > 0) {
-                                res.redirect(302, index.config.host + '/create?error=A penguin is already associated with this Discord account.');
-                                return;
-                            }
-
-                            var insertedUser = await mysql.insertUser(req.body.name, req.body.password, req.body.color, discordData.id);
-                            if (insertedUser.error) {
-                                res.redirect(302, index.config.host + '/create?error=Error communicating with database. Please try again later.');
-                                return;
-                            } else {
-                                res.redirect(302, index.config.host + '/complete');
-                            }
                         });
+                    }
+
+                    var accountExists = await mysql.checkIfAccountUsed(discordData.id);
+                    if (accountExists.error) {
+                        res.redirect(302, index.config.host + '/create?error=Error communicating with database. Please try again later.');
+                        return;
+                    } else if (accountExists.length > 0) {
+                        res.redirect(302, index.config.host + '/create?error=A penguin is already associated with this Discord account.');
+                        return;
+                    }
+
+                    var insertedUser = await mysql.insertUser(req.body.name, req.body.password, req.body.color, discordData.id);
+                    if (insertedUser.error) {
+                        res.redirect(302, index.config.host + '/create?error=Error communicating with database. Please try again later.');
+                        return;
+                    } else {
+                        res.redirect(302, index.config.host + '/complete');
+                    }
                 } catch (Exception) {
                     res.redirect(302, index.config.host + '/create?error=Error communicating with database. Please try again later.');
+                    console.error(Exception);
+                }
+            }
+        });
+    } else res.status(400).send("Invalid body.");
+});
+
+app.post('/api/forgot', async function (req, res) {
+    if (req.body.token && req.body.password) {
+        if (req.body.password.length < 4 || req.body.password.length > 30) {
+            res.redirect(302, index.config.host + '/create?error=Invalid password.');
+            return;
+        }
+
+        request({
+            url: 'https://discordapp.com/api/users/@me',
+            headers: {
+                'Authorization': 'Bearer ' + req.body.token
+            },
+            retryStrategy: myRetryStrategy,
+            delayStrategy: myDelayStrategy
+        }, async function (err, response, body) {
+            if (err) {
+                res.redirect(302, index.config.host + '/forgot?error=Error communicating with Discord. Please try again later.');
+                console.error(err);
+            } else if (response.statusCode != 200) {
+                res.redirect(302, index.config.host + '/forgot?error=Error communicating with Discord. Please try again later.');
+                console.error(body);
+            } else {
+                try {
+                    var discordData = JSON.parse(body);
+
+                    var accountExists = await mysql.checkIfAccountUsed(discordData.id);
+                    if (accountExists.error) {
+                        res.redirect(302, index.config.host + '/forgot?error=Error communicating with database. Please try again later.');
+                        return;
+                    } else if (accountExists.length == 0) {
+                        res.redirect(302, index.config.host + '/forgot?error=A penguin does not exist for this account. Create one first.');
+                        return;
+                    }
+
+                    var updatePassword = await mysql.updatePassword(discordData.id, req.body.password);
+                    if (updatePassword.error) {
+                        res.redirect(302, index.config.host + '/forgot?error=Error communicating with database. Please try again later.');
+                        return;
+                    } else {
+                        var getUsername = await mysql.getPenguinUsernameDiscord(discordData.id);
+                        if (getUsername.error) {
+                            res.redirect(302, index.config.host + '/forgot?error=Error communicating with database. Please try again later.');
+                            return;
+                        } else {
+                            res.redirect(302, index.config.host + '/complete?u=' + getUsername);
+                        }
+                    }
+                } catch (Exception) {
+                    res.redirect(302, index.config.host + '/forgot?error=Error communicating with database. Please try again later.');
                     console.error(Exception);
                 }
             }
@@ -133,7 +194,7 @@ app.get('/api/login', async function (req, res) {
                 client_id: index.config.discordClient.id,
                 client_secret: index.config.discordClient.secret,
                 redirect_uri: index.config.host + '/api/login',
-                scope: (index.config.discordJoin.enabled) ? 'identify guilds.join' : 'identify'
+                scope: (index.config.extras.autoJoin) ? 'identify guilds.join' : 'identify'
             },
             retryStrategy: myRetryStrategy,
             delayStrategy: myDelayStrategy

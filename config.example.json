@@ -4,7 +4,9 @@
     "playHost": "http://play.localhost/",
     "discordClient": {
         "id": "",
-        "secret": ""
+        "secret": "",
+        "token": "",
+        "serverID": ""
     },
     "mysql": {
         "host": "localhost",
@@ -14,11 +16,9 @@
         "database": "Houdini"
     },
     "account": {
-        "allowedCharsRegex": "[A-Za-z0-9 ]"
+        "allowedCharsRegex": "[A-Za-z0-9 ]+"
     },
-    "discordJoin": {
-        "enabled": false,
-        "serverID": "",
-        "botToken": ""
+    "extras": {
+        "autoJoin": false
     }
 }

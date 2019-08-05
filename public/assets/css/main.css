@@ -1,4 +1,4 @@
-/* Made by PikaDude https://pikadude.me/ */
+/* Made by PikaDude https://github.com/PikaDude/Discord-Houdini-Register */
 
 @font-face {
     font-family: ProximaNova-Bold;
@@ -104,6 +104,15 @@ a {
 input[type=submit]:hover,
 a:hover {
     background-color: #FF9A00;
+}
+
+.forgot {
+    background-color: #009DFF;
+    border: 7px solid #003366;
+}
+
+.forgot:hover {
+    background-color: #0088DD;
 }
 
 .input-desc {

@@ -4,9 +4,11 @@
     <title>Create Penguin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/main.css">
-    <!-- Made by PikaDude https://pikadude.me/ -->
+    <!-- Made by PikaDude https://github.com/PikaDude/Discord-Houdini-Register -->
     <script>
         window.onload = function () {
+            localStorage.setItem('type', 0);
+
             document.create.name.value = localStorage.getItem('name');
             document.create.password.value = localStorage.getItem('password');
             document.create.color.value = localStorage.getItem('color');
@@ -19,8 +21,6 @@
                 errorContainer.style.display = 'block';
             }
 
-
-
             var rad = document.create.color;
             var prev = null;
             for (var i = 0; i < rad.length; i++) {
@@ -32,7 +32,10 @@
             }
         }
 
-        if (!localStorage.getItem('token')) window.location = "//" + window.location.host;
+        if (!localStorage.getItem('token')) {
+            window.location = "//" + window.location.host;
+            localStorage.setItem('lastLocation', '/create');
+        }
 
         function saveValues() {
             localStorage.setItem('name', document.create.name.value);
@@ -115,11 +118,13 @@
                     <div class="color" style="background-color: #02A797;"></div>
                 </label>
             </div>
-            <input name="token" type="password" hidden>
+            <input name="token" type="hidden" hidden>
             <br />
             <br />
             <input type="submit" value="Create Penguin">
         </form>
+        <br />
+        <a class="forgot" href="/forgot">I forgot my password</a>
     </div>
 </body>
 
